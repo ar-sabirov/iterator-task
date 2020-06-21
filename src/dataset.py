@@ -2,12 +2,11 @@ from logging import getLogger
 from os import linesep
 from pathlib import Path
 
-import pandas as pd
-
 from .indicies import get_indicies
 from .util import load_image, load_video, read_timestamps, read_touch
 
 logger = getLogger(__name__)
+
 
 class MyDataset:
     def __init__(self,
@@ -18,19 +17,21 @@ class MyDataset:
         self.depth_path = self.root_path / 'depth'
         self.touch_path = self.root_path / 'touch'
         self.unit = unit
+        
 
     def __iter__(self):
         self.depth_files = sorted(self.depth_path.glob('frame-*.png'))
         self.touch_files = sorted(self.touch_path.glob('observation-*.txt'))
-        
-        logger.debug('Depth files:%s %s', linesep, self.depth_files)
-        logger.debug('Touch files:%s %s', linesep, self.touch_files)
-        
+
+        logger.debug(f'Depth files: {linesep} {self.depth_files}')
+        logger.debug(f'Touch files: {linesep} {self.touch_files}')
+
         self.rgb_frames = load_video(self.rgb_path / 'video.mp4')
-        
-        logger.debug('Num of video frames: %s', len(self.rgb_frames))
+
+        logger.debug(f'Num of video frames: {len(self.rgb_frames)}')
         rgb_ts = read_timestamps(self.rgb_path / 'per_frame_timestamps.txt')
-        depth_ts = read_timestamps(self.depth_path / 'per_frame_timestamps.txt')
+        depth_ts = read_timestamps(
+            self.depth_path / 'per_frame_timestamps.txt')
         self.touch_ts = read_timestamps(
             self.touch_path / 'per_observation_timestamps.txt')
 
