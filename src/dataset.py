@@ -38,11 +38,10 @@ class MyDataset:
         self.rgb_frames = rgb_frames
         self.touch_ts = touch_ts
         self._i = None
-        self._limit = None
+        self._limit = len(self.indicies)
 
     def __iter__(self):
         self._i = 0
-        self._limit = len(self.indicies)
         return self
 
     def __next__(self):
