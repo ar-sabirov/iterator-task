@@ -12,37 +12,37 @@ class MyDataset:
     def __init__(self,
                  path: str,
                  unit='us'):
-        self.root_path = Path(path)
-        self.rgb_path = self.root_path / 'rgb'
-        self.depth_path = self.root_path / 'depth'
-        self.touch_path = self.root_path / 'touch'
-        self.unit = unit
-        
+        root_path = Path(path)
+        rgb_path = root_path / 'rgb'
+        depth_path = root_path / 'depth'
+        touch_path = root_path / 'touch'
 
-    def __iter__(self):
-        self.depth_files = sorted(self.depth_path.glob('frame-*.png'))
-        self.touch_files = sorted(self.touch_path.glob('observation-*.txt'))
+        self.depth_files = sorted(depth_path.glob('frame-*.png'))
+        self.touch_files = sorted(touch_path.glob('observation-*.txt'))
 
         logger.debug(f'Depth files: {linesep} {self.depth_files}')
         logger.debug(f'Touch files: {linesep} {self.touch_files}')
 
-        self.rgb_frames = load_video(self.rgb_path / 'video.mp4')
+        rgb_frames = load_video(rgb_path / 'video.mp4')
+        logger.debug(f'Num of video frames: {len(rgb_frames)}')
 
-        logger.debug(f'Num of video frames: {len(self.rgb_frames)}')
-        rgb_ts = read_timestamps(self.rgb_path / 'per_frame_timestamps.txt')
-        depth_ts = read_timestamps(
-            self.depth_path / 'per_frame_timestamps.txt')
-        self.touch_ts = read_timestamps(
-            self.touch_path / 'per_observation_timestamps.txt')
+        rgb_ts = read_timestamps(rgb_path / 'per_frame_timestamps.txt')
+        depth_ts = read_timestamps(depth_path / 'per_frame_timestamps.txt')
+        touch_ts = read_timestamps(
+            touch_path / 'per_observation_timestamps.txt')
 
         self.indicies = get_indicies(rgb_ts,
                                      depth_ts,
-                                     self.touch_ts,
-                                     unit=self.unit)
+                                     touch_ts,
+                                     unit=unit)
+        self.rgb_frames = rgb_frames
+        self.touch_ts = touch_ts
+        self._i = None
+        self._limit = None
 
+    def __iter__(self):
         self._i = 0
         self._limit = len(self.indicies)
-
         return self
 
     def __next__(self):
