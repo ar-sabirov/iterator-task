@@ -50,13 +50,12 @@ class MyDataset:
         ind = self.indicies[self._i]
         touch_idx, rgb_idx, depth_idx = ind['touch'], ind['rgb'], ind['depth']
 
-        touch_timestamp_i = self.touch_ts[touch_idx]
-
         logger.debug(f'{self._i}')
         logger.debug(f'Touch: {self.touch_files[touch_idx]}')
         logger.debug(f'Depth: {self.depth_files[depth_idx]}')
         logger.debug(f'rgb idx: {rgb_idx}')
-        
+
+        touch_timestamp_i = self.touch_ts[touch_idx]
         touch_i = read_touch(self.touch_files[touch_idx])
         rgb_j = self.rgb_frames[rgb_idx]
         depth_k = load_image(self.depth_files[depth_idx])
