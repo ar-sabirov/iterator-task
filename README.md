@@ -9,7 +9,7 @@ tests/test_indicies.py - тест для функции get_indicies, хорош
 Запуск:
     python -m unittest tests/test_indicies.py
 
-run.py - cli для тестового запуста
+run.py - cli для тестового запуска
 
 pip install -r requirements.txt
 
