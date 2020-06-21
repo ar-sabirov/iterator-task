@@ -1,5 +1,5 @@
 from functools import reduce
-from typing import List
+from typing import Dict, List
 
 import pandas as pd
 
@@ -7,7 +7,7 @@ import pandas as pd
 def get_indicies(rgb_arr: List[int],
                  depth_arr: List[int],
                  touch_arr: List[int],
-                 unit: str = 'us') -> List[List[int]]:
+                 unit: str = 'us') -> List[Dict[str, int]]:
     """
                             touch  depth  rgb
         00:00:00             0      0    0
@@ -54,3 +54,13 @@ def get_indicies(rgb_arr: List[int],
         print(df)
 
     return df.reset_index(drop=True).to_dict(orient='records')
+
+def main():
+    import numpy as np
+    rgb_arr = np.arange(0, 200, 9)
+    depth_arr = np.arange(0, 250, 16)
+    touch_arr = np.arange(0, 350, 50)
+    get_indicies(rgb_arr, depth_arr, touch_arr)
+    
+if __name__ == "__main__":
+    main()
