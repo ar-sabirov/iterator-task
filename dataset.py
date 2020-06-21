@@ -2,8 +2,8 @@ from pathlib import Path
 
 import pandas as pd
 
-from util import (get_indicies, load_image, load_video, read_timestamps,
-                  read_touch)
+from indicies import get_indicies
+from util import load_image, load_video, read_timestamps, read_touch
 
 
 class MyDataset:
@@ -54,6 +54,6 @@ class MyDataset:
 
 
 if __name__ == "__main__":
-    ds = MyDataset('/Users/ar_sabirov/2-Data/giant_test/my_dataset')
+    ds = MyDataset('/Users/ar_sabirov/2-Data/giant_data/my_dataset')
     for touch_timestamp_i, touch_i, rgb_j, depth_k in ds:
         pass
