@@ -7,6 +7,9 @@ import click
 fileConfig('logging_config.ini')
 logger = logging.getLogger()
 
+from src.async_dataset import MyAsyncDataset
+from src.dataset import MyDataset
+
 
 @click.command()
 @click.option('--path', '-p', type=str, help='Path to dataset folder')
@@ -20,8 +23,6 @@ def main(**params):
 
 
 def delayed_run(path):
-    from src.async_dataset import MyAsyncDataset
-
     async def delayed_iterate(ds):
         async for data in ds:
             logger.info(data[0])
@@ -35,7 +36,6 @@ def delayed_run(path):
 
 
 def run(path):
-    from src.dataset import MyDataset
     ds = MyDataset(path)
     for data in ds:
         logger.info(data[0])
