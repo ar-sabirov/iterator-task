@@ -1,5 +1,6 @@
 import sys
 import unittest
+from os import linesep
 from pathlib import Path
 
 import numpy as np
@@ -28,8 +29,8 @@ class TestIndicies(unittest.TestCase):
                                'rgb': rgb_arr[indicies['rgb']],
                                'touch': touch_arr[indicies['touch']]})
 
-        print(f'Expected:\n{expected}')
-        print(f'Actual:\n{actual}')
+        print(f'Expected:{linesep}{expected}')
+        print(f'Actual:{linesep}{actual}')
 
         pd.testing.assert_frame_equal(expected, actual)
 

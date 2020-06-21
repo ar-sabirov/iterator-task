@@ -1,10 +1,11 @@
+from logging import getLogger
+from os import linesep
 from pathlib import Path
 
 import pandas as pd
 
 from .indicies import get_indicies
 from .util import load_image, load_video, read_timestamps, read_touch
-from logging import getLogger
 
 logger = getLogger(__name__)
 
@@ -22,8 +23,8 @@ class MyDataset:
         self.depth_files = sorted(self.depth_path.glob('frame-*.png'))
         self.touch_files = sorted(self.touch_path.glob('observation-*.txt'))
         
-        logger.debug('Depth files:\n%s', self.depth_files)
-        logger.debug('Touch files:\n%s', self.touch_files)
+        logger.debug('Depth files:%s %s', linesep, self.depth_files)
+        logger.debug('Touch files:%s %s', linesep, self.touch_files)
         
         self.rgb_frames = load_video(self.rgb_path / 'video.mp4')
         
