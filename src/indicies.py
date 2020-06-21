@@ -7,17 +7,7 @@ import pandas as pd
 def get_indicies(rgb_arr: List[int],
                  depth_arr: List[int],
                  touch_arr: List[int],
-                 unit: str = 'us') -> List[Dict[str, int]]:
-    """
-                            touch  depth  rgb
-        00:00:00             0      0    0
-        00:00:00.000050      1      3    6
-        00:00:00.000100      2      6   11
-        00:00:00.000150      3      9   17
-        00:00:00.000200      4     13   17
-        00:00:00.000250      5     13   17
-        00:00:00.000300      6     13   17
-    """
+                 unit: str = 'us') -> List[Dict[str, int]]:    
     sr_rgb = pd.Series(rgb_arr)
     sr_depth = pd.Series(depth_arr)
     sr_touch = pd.Series(touch_arr)
@@ -43,14 +33,5 @@ def get_indicies(rgb_arr: List[int],
 
     df = df.fillna(method='ffill').astype(int)
     df = df.iloc[0:len(sr_touch)]
-
-    with pd.option_context('display.max_rows', 100):
-        test_df = pd.DataFrame({'touch': sr_touch,
-                                'depth': sr_depth[depth_ts].reset_index(drop=True),
-                                'rgb': sr_rgb[rgb_ts].reset_index(drop=True)})
-        print('Alligned timestamps')
-        print(test_df)
-        print('Alligned indicies')
-        print(df)
 
     return df.reset_index(drop=True).to_dict(orient='records')
