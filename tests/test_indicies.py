@@ -5,6 +5,8 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+sys.path.append(str(Path(__file__).absolute().parent.parent))
+from src.indicies import get_indicies
 
 class TestIndicies(unittest.TestCase):
 
@@ -33,6 +35,4 @@ class TestIndicies(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    sys.path.append(str(Path(__file__).absolute().parent.parent))
-    from src.indicies import get_indicies
     unittest.main()

@@ -13,7 +13,7 @@ from src.dataset import MyDataset
 
 @click.command()
 @click.option('--path', '-p', type=str, help='Path to dataset folder')
-@click.option('--delayed', '-d', type=bool, default=False, help='Use delays')
+@click.option('--delayed', '-d', is_flag=True, help='Use async iterator')
 def main(**params):
     path = params['path']
     if params['delayed']:

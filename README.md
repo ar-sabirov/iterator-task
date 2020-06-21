@@ -9,6 +9,8 @@ tests/test_indicies.py - тест для функции get_indicies, хорош
 
 run.py - cli для тестового запуста
 
+pip install -r requirements.txt
+
 Синхронно:
 python run.py -p /path/to/dataset/root/
 
