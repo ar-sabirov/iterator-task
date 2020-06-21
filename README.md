@@ -3,16 +3,18 @@
 src/dataset.py - Базовый итератор, который делает ресемплинг на количество семплов и частоту в данных touch    
 src/indicies.py - построение индексов для выравненной по времени итерации по данным    
 src/async_dataset.py - Асинхронная надстройка над базовым итератором    
-src/util.oy - вспомогательные функции для чтения данных из источников    
+src/util.py - вспомогательные функции для чтения данных из источников    
 
 tests/test_indicies.py - тест для функции get_indicies, хорошо иллюстрирует результат работы выравнивания
+Запуск:
+    python -m unittest tests/test_indicies.py
 
 run.py - cli для тестового запуста
 
 pip install -r requirements.txt
 
 Синхронно:
-python run.py -p /path/to/dataset/root/
+    python run.py -p /path/to/dataset/root/
 
 Асинхронно:
-python run.py -d True -p /path/to/dataset/root/
+    python run.py -d -p /path/to/dataset/root/
