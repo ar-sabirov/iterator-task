@@ -22,9 +22,13 @@ def load_image(path: Path) -> np.ndarray:
 
 
 def read_timestamps(path) -> pd.Series:
-    return pd.read_csv(path, header=None)[0]
+    return pd.read_csv(path,
+                       dtype={0: int},
+                       header=None)[0]
 
 
-def read_touch(path) -> List[float]:
-    with open(path, 'r') as fr:
-        return [float(x) for x in fr.read().split(' ')]
+def read_touch(path) -> pd.Series:
+    return pd.read_csv(path,
+                       dtype={0: float},
+                       header=None,
+                       lineterminator=' ')[0]

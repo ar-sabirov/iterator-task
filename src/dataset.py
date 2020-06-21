@@ -23,9 +23,6 @@ class MyDataset:
         logger.debug(f'Depth files: {linesep} {self.depth_files}')
         logger.debug(f'Touch files: {linesep} {self.touch_files}')
 
-        rgb_frames = load_video(rgb_path / 'video.mp4')
-        logger.debug(f'Num of video frames: {len(rgb_frames)}')
-
         rgb_ts = read_timestamps(rgb_path / 'per_frame_timestamps.txt')
         depth_ts = read_timestamps(depth_path / 'per_frame_timestamps.txt')
         touch_ts = read_timestamps(
@@ -35,7 +32,8 @@ class MyDataset:
                                      depth_ts,
                                      touch_ts,
                                      unit=unit)
-        self.rgb_frames = rgb_frames
+        self.rgb_frames = load_video(rgb_path / 'video.mp4')
+        logger.debug(f'Num of video frames: {len(self.rgb_frames)}')
         self.touch_ts = touch_ts
         self._i = None
         self._limit = len(self.indicies)
