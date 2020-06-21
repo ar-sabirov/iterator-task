@@ -50,12 +50,10 @@ def get_indicies(rgb_arr: List[int],
                        data=sr_rgb.index,
                        name='rgb').reindex(touch_ts.index, method='nearest')
 
-    to_merge = [touch_ts, depth_ts, rgb_ts]
-
     df = reduce(
         lambda a, b: pd.merge(a, b, right_index=True,
                               left_index=True, how='outer'),
-        to_merge)
+        [touch_ts, depth_ts, rgb_ts])
 
     df = df.fillna(method='ffill').astype(int)
     df = df.iloc[0:len(sr_touch)]
