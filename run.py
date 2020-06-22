@@ -27,7 +27,7 @@ def delayed_run(path):
         async for data in ds:
             pass
 
-    ds = MyAsyncDataset(path, unit_conversion=1e-1)
+    ds = MyAsyncDataset(path, unit_conversion=1e-2)
     event_loop = asyncio.get_event_loop()
     try:
         event_loop.run_until_complete(delayed_iterate(ds))
